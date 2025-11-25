@@ -6,12 +6,12 @@
 #SBATCH --mem=30G
 
 
-SAMPLE=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/EGP017_25_044_best_assembly.fa 
-BAM=/home/ngarvey/scratch/contamination_detection/manual_pipeline/bam/EGP017_25_044_best_assembly.bam
-YAML=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/EGP017_025_044.yaml
+SAMPLE=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/batch01_191125/EGP017_25_003_best_assembly.fa 
+BAM=/home/ngarvey/scratch/contamination_detection/manual_pipeline/bam/EGP017_25_003_best_assembly_sorted.bam
+YAML=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/batch01_191125/EGP017_025_003.yaml
 RESULT=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/blobtools
-BUSCO=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/EGP017_25_044_busco_table.tsv
-TAXONOMY=/mnt/shared/projects/rbgk/projects/FSP/03_Output/01_QC/03_Decontamination/manual_pipeline/results/comparison/graphs/EGP017_25_044_blobtools_taxonomy_underscore.tsv
+BUSCO=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/batch01_191125/EGP017_25_003_busco.tsv
+TAXONOMY=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/comparison/EGP017_25_003_blobtools_taxonomy.tsv
 
 source /mnt/apps/users/ngarvey/conda/etc/profile.d/mamba.sh
 
@@ -27,7 +27,7 @@ cd "$RESULT"
 blobtools create \
     --fasta "$SAMPLE" \
     --meta "$YAML" \
-    ./EGP017_25_044_blobdir
+    ./EGP017_25_003_blobdir
 
 
 
@@ -37,7 +37,7 @@ blobtools create \
 
 blobtools add \
     --busco "$BUSCO" \
-    ./EGP017_25_044_blobdir
+    ./EGP017_25_003_blobdir
 
 
 
@@ -52,13 +52,13 @@ blobtools add \
     --text-cols "seq_id=identifiers,taxonomy=taxonomy" \
     --text-header \
     --key plot.cat=taxonomy \
-    ./EGP017_25_044_blobdir
+    ./EGP017_25_003_blobdir
 
 
 #add coverage data
 blobtools add \
     --cov "$BAM" \
     --threads 24 \
-    ./EGP017_25_044_blobdir
+    ./EGP017_25_003_blobdir
 
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=tiara_manual
-#SBATCH --output=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/tiara_manual_%j.out
-#SBATCH --error=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/tiara_manual_%j.err
+#SBATCH --output=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/tiara_manual_batch01_%j.out
+#SBATCH --error=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/tiara_manual_batch01_%j.err
 #SBATCH --time=01:00:00
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=20G
@@ -9,7 +9,7 @@
 # Activate conda env
 source activate tiara
 
-INPUT_DIR=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes
+INPUT_DIR=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/batch01_191125
 OUTPUT_DIR=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/tiara
 
 

@@ -10,4 +10,4 @@ source /mnt/apps/users/ngarvey/conda/etc/profile.d/conda.sh
 conda activate R
 
 #Run R script
-Rscript /home/ngarvey/scratch/contamination_detection/manual_pipeline/scripts/tiara_fcs_comparison.R
+Rscript /home/ngarvey/scratch/contamination_detection/manual_pipeline/scripts/tiara_vs_fcs_comparison_v3.R

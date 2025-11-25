@@ -8,9 +8,9 @@
 
 
 #input query fasta and taxid
-FASTA=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/EGP017_25_044_best_assembly.fa
+FASTA=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/batch01_191125/EGP017_25_003_best_assembly.fa
 OUT=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/fcs
-TAXID=1354922
+TAXID=2897174
 GXDB=/home/ngarvey/scratch/contamination_detection/FCS/gxdb/gxdb/all.gxi
 
 mkdir -p "$OUT"
@@ -26,17 +26,6 @@ run_gx.py --fasta "$FASTA" \
 --tax-id "$TAXID"
 
 
-# -----------------------------
-# Postprocess GX output report
-# -----------------------------
-REPORT="$OUT/$(basename "$FASTA" .fasta).FCS-GX.taxonomy.rpt"
-CLEAN_REPORT="$OUT/$(basename "$FASTA" .fasta).FCS-GX.taxonomy.clean.tsv"
 
-# Skip first line, remove leading # from header, convert | to tabs, collapse extra tabs
-tail -n +2 "$REPORT" \
-    | sed '1s/^#//' \
-    | sed 's/|/\t/g' \
-    | tr -s '\t' \
-    > "$CLEAN_REPORT"
 
-echo "Cleaned FCS-GX report saved to: $CLEAN_REPORT"
+

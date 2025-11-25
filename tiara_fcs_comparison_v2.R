@@ -11,9 +11,9 @@ library(stringr)
 # ------------------------------
 # Step 0: Define file paths and output directory
 # ------------------------------
-fcs_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/fcs/EGP017_25_044_best_assembly.FCS-GX.taxonomy.rpt"
-tiara_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/tiara/tiara_EGP017_25_044_best_assembly.txt"
-output_dir <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/comparison/graphs"
+fcs_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/fcs/EGP017_25_003_best_assembly.FCS-GX.taxonomy.clean.tsv"
+tiara_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/tiara/tiara_EGP017_25_003_best_assembly.txt"
+output_dir <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/comparison"
 
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
 
@@ -154,17 +154,25 @@ cat("\nBreakdown by domain pair (as % of total bp):\n")
 # ------------------------------
 # create  blobtags
 # ------------------------------
-df_compare <- df_compare %>% 
- mutate(
-    # Standardize unknowns first to lowercase
+
+df_compare <- df_compare %>%
+  mutate(
+    # Standardize unknowns first
     species_fcs = ifelse(is.na(species_fcs) | species_fcs == "Unknown", "unknown", species_fcs),
-    
-    # Create the blob_tag column
+
+
+    # Replace spaces with underscores
+    species_fcs = gsub(" ", "_", species_fcs),
+
+    # Create blob_tag depending on match status
     blob_tag = ifelse(
       match == "match",
-      species_fcs,  # use the species name if it’s a match
-      paste0(domain_tiara, "/", species_fcs)  # combine domain and species for mismatches
-    )
+      species_fcs,  # if match → use species name
+      paste0(domain_tiara, "_", species_fcs)  # if mismatch → combine domain_species
+    ),
+
+    # Override blob_tag for contigs <1kb
+    blob_tag = ifelse(seq_len < 1000, "unknown", blob_tag)
   )
 
 # ------------------------------
@@ -173,32 +181,11 @@ df_compare <- df_compare %>%
 #now all contigs >1kbp are labelled as "unknown"
 #this is as tiara will not test contigs below 1kbp and FCS-GX is not accurate below 1kbp.
 
-df_compare <- df_compare %>%
-  mutate(
-    # Standardize unknowns first
-    species_fcs = ifelse(is.na(species_fcs) | species_fcs == "Unknown", "unknown", species_fcs),
-
-    # Create blob_tag depending on match status
-    blob_tag = ifelse(
-      match == "match",
-      species_fcs,  # if match → use species name
-      paste0(domain_tiara, "/", species_fcs)  # if mismatch → combine domain/species
-    ),
-
-    # Override blob_tag for contigs <1kb
-    blob_tag = ifelse(seq_len < 1000, "unknown", blob_tag)
-  )
-
-# ------------------------------
-# Step 10: Stacked Bar Plot (Match vs Mismatch)
-# ------------------------------
-
 blob_taxonomy <- df_compare %>%
   select(seq_id, blob_tag) %>%
   rename(taxonomy = blob_tag)
 
 
 # Write it to the output directory
-write_tsv(blob_taxonomy, file.path(output_dir, paste0(sample_id, "_blobtools_taxonomy.tsv")))
-```
+write_tsv(blob_taxonomy, file.path(output_dir, paste0(sample_id, "blobtools_taxonomy.tsv")))
 

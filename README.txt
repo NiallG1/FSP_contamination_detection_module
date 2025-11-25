@@ -1,25 +1,34 @@
-This is a list of instructions for running the pipeline in its current form as seperate scripts
-This also includes a run through of the steps of this process as is
+This is a list of instructions for running the pipeline in its current form as seperate scripts.
+A script is included for generating .bam files from the raw reads and assembly as blobtoolkit required
+as specific style of indexing where a .bam.csi is generated instead of a .bam.bai. 
 
-1. First script will take all of the genomes in a given directory, create copies with all contigs
-that are <250bp removed. This is as EBI does not accept contigs below this size. The script will then
-generate BAM files from these.
+1.The script "tiara.sh" is used to run tiara on the assembly file. it requires tiara to be installed, and takes
+an input directory and output directory as inputs. It is designed to loop through a given directory, as tiara is very
+quick. FCS-GX is much much slower so processes 1 file at a time.
 
-2.the next script will generate new copies of these files that are seperated in >1kbp and <1kbp. Tiara
-will then be run to generate a Tiara report.
+2. The script "FCS-GX.sh" requires an input fasta file and  NCBI taxonid, as well as a installation of the FCS-GX database
+"/gxdb/all.gxi"
 
-3. A .yml file will be needed to run FCS, so this will have to be manually created at present.
+FCS-GX outputs 2 files. one is a .txt file containing the contigs FCS-GX has classified as "contamination". the second is
+a .rpt file containing the classifications of all the contigs. This is what the pipeline uses, and requires some processing 
+to be readable by R, which is carried out by FCS_reformat.sh
 
-4. FCS can then be run on the >1kbp files to generate a FCS report.
+3. There is then an R script which processed the results of FCS-GX and Tiara and compares their outputs. This generates several
+reports as well as a final TSV which is what blobtools uses to tag contigs with taxonomy. To run the R script you need to open it and 
+add your file path for tiard and fcs results and an out directory. then you need to run the "comparison_R.sh" script, as this is a wrapper 
+script which runs R for you via slurm.
 
-5. The comparison script will then be run on the tiara and fcs-gx report. the result of this will be 
-a taxonomic assignments tsv file, which will be fed into blobtools.
+4. At this point you should have a .bam file, a fasta.fa file, a taxonomy.tsv file. you will also need to create a .yml file. simply replace
+the species name and taxon id in the provided example .yml file. 
 
-6.the >250bp version of the fasta files will then be fed into blobtools, along with the .bam files and the
-taxonomic assignment tsv using the provided script.
 
-7. contigs flagged as contaminants by this process will then be removed from the >250bp fasta files, which
-will need another assessment step.
+5. You will then input the file paths for these + busco.tsv if you have it into the blobtoolkit (btk) script. This script builds the blobdirectory
+and adds each data set to it. you will need to install blobtoolkit into a mamba env (issues when using btk and conda) and then tell the script where
+you have installed it. You then should run the blobtoolkit command "blobtools validate ." from inside your new blobdirectory. This will check if all of
+your .json files (how blobtools stores your input info) were created correctly. if correct, you will then have to transfer the blobdirectory to your local
+machine and run btk on a docker container, as btk has some issues displaying on the cluster. The docker command will be provided here also.
+
+
 
 
 
