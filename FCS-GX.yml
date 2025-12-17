@@ -1,0 +1,42 @@
+name: ncbi_fcsgx
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - aria2=1.36.0=h43d1f13_4
+  - bzip2=1.0.8=h4bc722e_7
+  - c-ares=1.34.5=hb9d3cd8_0
+  - ca-certificates=2025.8.3=hbd8a1cb_0
+  - grep=3.11=h7af0fdc_3
+  - gzip=1.14=hb9d3cd8_0
+  - ld_impl_linux-64=2.44=h1423503_1
+  - libexpat=2.7.1=hecca717_0
+  - libffi=3.4.6=h2dba641_1
+  - libgcc=15.1.0=h767d61c_4
+  - libgcc-ng=15.1.0=h69a702a_4
+  - libgomp=15.1.0=h767d61c_4
+  - libiconv=1.18=h3b78370_2
+  - liblzma=5.8.1=hb9d3cd8_2
+  - libmpdec=4.0.0=hb9d3cd8_0
+  - libsqlite=3.50.4=h0c1763c_0
+  - libssh2=1.11.1=hcf80075_0
+  - libstdcxx=15.1.0=h8f9b012_4
+  - libstdcxx-ng=15.1.0=h4852527_4
+  - libuuid=2.38.1=h0b41bf4_0
+  - libxml2=2.13.8=h2cb61b6_1
+  - libzlib=1.3.1=hb9d3cd8_2
+  - ncbi-fcs-gx=0.5.5=h9948957_0
+  - ncurses=6.5=h2d0b736_3
+  - openssl=3.5.2=h26f9b46_0
+  - pcre2=10.44=hc749103_2
+  - pip=25.2=pyh145f28c_0
+  - pv=1.6.6=h470a237_0
+  - python=3.13.5=hec9711d_102_cp313
+  - python_abi=3.13=8_cp313
+  - rclone=1.61.1=h519d9b9_0
+  - readline=8.2=h8c095d6_2
+  - tk=8.6.13=noxft_hd72426e_102
+  - tzdata=2025b=h78e105d_0
+prefix: /mnt/apps/users/ngarvey/conda/envs/ncbi_fcsgx

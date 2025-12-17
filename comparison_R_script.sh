@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=tiara_fcs_R
-#SBATCH --output=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/tiara_fcs_R_%j.out
-#SBATCH --error=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/tiara_fcs_R_%j.err
+#SBATCH --output=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/tiara_fcs_R_synth_%j.out
+#SBATCH --error=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/tiara_fcs_R_synth_%j.err
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=20G
 

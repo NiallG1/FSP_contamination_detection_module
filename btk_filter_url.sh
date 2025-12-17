@@ -6,10 +6,10 @@
 #SBATCH --mem=30G
 
 
-SAMPLE=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/EGP017_25_044_best_assembly.fa
-FILTER=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/EGP017_25_044_blobdir.current.json
+SAMPLE=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/batch01_191125/EGP017_25_003_best_assembly.fa
+#FILTER=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/EGP017_25_044_blobdir.current.json
 OUTPUT=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/blobtools
-BLOBDIR=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/blobtools/EGP017_25_044_blobdir
+BLOBDIR=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/blobtools/EGP017_25_003_blobdir
 
 
 #Align genome back to the reads to check coverage:
@@ -20,7 +20,25 @@ mamba activate btk
 
 
 blobtools filter \
-    --query-string "http://localhost:8080/view/all/dataset/EGP017_25_044_blobdir/blob?taxonomy--Keys=1%2C6%2C17%2C13%2C10%2C11%2C18%2C3%2C0&plotShape=circle" \
+    --query-string "http://localhost:8080/view/all/dataset/EGP017_25_003_blobdir/blob?plotShape=circle&plotGraphics=svg&taxonomy--Keys=25%2C14%2C17%2C32%2C13%2C10%2C1%2C7%2C0#Filters" \
     --fasta "$SAMPLE" \
-    "$BLOBDIR" \
-    --outdir "$OUTPUT"
+    "$BLOBDIR"
+
+
+#blobtools filter \
+#    --query-string "http://localhost:8080/view/all/dataset/Myblobdir/blob?gc--Max=0.500&hifi.aln.sorted_cov--Active=true&hifi.aln.sorted_cov--Max=5180#Filters" \
+#    --fasta assembly/original_assembly.fa \
+#    ./Myblobdir
+
+
+
+blobtools filter \
+    --query-string "http://localhost:8080/view/all/dataset/EGP017_25_003_blobdir/blob?plotShape=circle&plotGraphics=svg&taxonomy--Keys=25%2C14%2C17%2C32%2C13%2C10%2C1%2C7%2C0#Filters" \
+    --fasta /home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/batch01_191125/EGP017_25_003_best_assembly.fa \
+    /home/ngarvey/scratch/contamination_detection/manual_pipeline/results/blobtools/EGP017_25_003_blobdir
+
+blobtools filter \
+     --json /home/ngarvey/scratch/contamination_detection/manual_pipeline/blobtools/EGP017_25_003_blobdir.current.json \
+     --fasta /home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/batch01_191125/EGP017_25_003_best_assembly.fa \
+     /home/ngarvey/scratch/contamination_detection/manual_pipeline/results/blobtools/EGP017_25_003_blobdir
+    

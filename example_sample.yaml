@@ -1,0 +1,10 @@
+assembly:
+  accession: local
+  prefix: EGP017_25_044
+  alias: EGP017_025_44
+  record_type: contig
+
+taxon:
+  name: Xerocomus silwoodensis
+  taxid: 1354922
+

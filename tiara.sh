@@ -9,7 +9,7 @@
 # Activate conda env
 source activate tiara
 
-INPUT_DIR=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/batch01_191125
+INPUT_DIR=/mnt/shared/projects/rbgk/projects/FSP/03_Output/01_QC/03_Decontamination/02_synthetic_genomes
 OUTPUT_DIR=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/tiara
 
 

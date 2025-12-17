@@ -11,8 +11,8 @@ library(stringr)
 # ------------------------------
 # Step 0: Define file paths and output directory
 # ------------------------------
-fcs_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/fcs/EGP017_25_003_FCS_GX.tsv" 
-tiara_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/tiara/tiara_EGP017_25_003_best_assembly.txt"
+fcs_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/fcs/synthetic/EGP017_25_Com_2_FCS_GX.tsv" 
+tiara_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/tiara/tiara_Com_2.txt"
 output_dir <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/comparison"
 
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)

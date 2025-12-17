@@ -8,17 +8,15 @@
 
 
 #input query fasta and taxid
-FASTA=/mnt/shared/projects/rbgk/projects/FSP/03_Output/01_QC/03_Decontamination/02_synthetic_genomes/Com_2.fa
-OUT=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/fcs/synthetic
-TAXID=5061
+FASTA=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/batch01_191125/EGP017_25_047_best_assembly.fa
+OUT=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/fcs/taxon_test
+TAXID=60108
 GXDB=/home/ngarvey/scratch/contamination_detection/FCS/gxdb/gxdb/all.gxi
-OUTBASENAME="EGP017_25_047_Com2"
+OUTBASENAME="EGP017_25_047_family_level"
 
 mkdir -p "$OUT"
 
-source /mnt/apps/users/ngarvey/conda/etc/profile.d/conda.sh
-
-conda activate ncbi_fcsgx
+source activate ncbi_fcsgx
 
 # Match threads to SLURM allocation
 export GX_NUM_CORES=$SLURM_CPUS_PER_TASK
@@ -28,7 +26,6 @@ run_gx.py --fasta "$FASTA" \
 --gx-db "$GXDB" \
 --tax-id "$TAXID" \
 --out-basename "$OUTBASENAME"
-
 
 
 
