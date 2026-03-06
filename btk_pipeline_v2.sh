@@ -1,17 +1,17 @@
 #!/bin/bash
 #SBATCH --job-name=btk_generate
-#SBATCH --output=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/btk_pipeline_v2_%j.out
-#SBATCH --error=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/btk_pipeline_v2_%j.err
+#SBATCH --output=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/EGP017_25_B5_035_%j.out
+#SBATCH --error=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/EGP017_25_B5_035_%j.err
 #SBATCH --cpus-per-task=24
 #SBATCH --mem=30G
 
 
-SAMPLE=/mnt/shared/projects/rbgk/projects/FSP/03_Output/01_QC/03_Decontamination/02_synthetic_genomes/Com_1.fa 
-BAM=/home/ngarvey/scratch/contamination_detection/manual_pipeline/bam/EGP017_25_056_best_assembly_sorted.bam
+SAMPLE=/home/ngarvey/projects/rbgk/projects/FSP/03_Output/01_QC/03_Decontamination/02_synthetic_genomes/Com_1.fa
+#BAM=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/10_003_comparison/EGP017_25_B5_035/best_assembly_info_and_QC/samtools_pypolca/EGP017_25_B5_035_best_assembly_pypolca_sorted.bam
 YAML=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/EGP017_025_Com1.yaml
 RESULT=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/blobtools
-BUSCO=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/batch01_191125/EGP017_25_056_busco.tsv
-TAXONOMY=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/comparison/EGP017_Com1_blobtools_taxonomy.tsv
+#BUSCO=/home/ngarvey/scratch/contamination_detection/manual_pipeline/genomes/10_003_comparison/EGP017_25_B5_035/best_assembly_info_and_QC/busco_specific_pypolca/EGP017_25_B5_035_best_assembly_full_table.tsv 
+TAXONOMY=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/comparison/synthetic/EGP017_25_Com_1_blobtools_taxonomy_debug.tsv
 
 
 
@@ -35,7 +35,7 @@ cd "$RESULT"
 blobtools create \
     --fasta "$SAMPLE" \
     --meta "$YAML" \
-    ./EGP017_25_Com1_blobdir
+    ./EGP017_25_Com_1_debug_blobdir
 
 
 
@@ -43,9 +43,9 @@ blobtools create \
 # Step 2: Add BUSCO completeness data
 # ================================
 
-blobtools add \
-    --busco "$BUSCO" \
-    ./EGP017_25_Com1_blobdir
+#blobtools add \
+#    --busco "$BUSCO" \
+#    ./EGP017_25_B5_035_blobdir
 
 
 
@@ -60,7 +60,7 @@ blobtools add \
     --text-cols "seq_id=identifiers,taxonomy=taxonomy" \
     --text-header \
     --key plot.cat=taxonomy \
-    ./EGP017_25_Com1_blobdir
+    ./EGP017_25_Com_1_debug_blobdir
 
 
 # ================================
@@ -68,9 +68,9 @@ blobtools add \
 # ================================
 
 #add coverage data
-blobtools add \
-    --cov "$BAM" \
-    --threads 24 \
-    ./EGP017_25_Com1_blobdir
+#blobtools add \
+#    --cov "$BAM" \
+#    --threads 24 \
+#    ./EGP017_25_B5_035_blobdir
 
 

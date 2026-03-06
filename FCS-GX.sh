@@ -1,18 +1,18 @@
 #!/bin/bash
 #SBATCH --job-name=fcsx_gx
-#SBATCH --output=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/fcsx_gx_%j.out
-#SBATCH --error=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/fcsx_gx_%j.err
+#SBATCH --output=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/Com_5_%j.out
+#SBATCH --error=/home/ngarvey/scratch/contamination_detection/manual_pipeline/error_out/Com_5_%j.err
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=520G
 #SBATCH --partition=himem
 
 
 #input query fasta and taxid
-FASTA=/mnt/shared/projects/rbgk/projects/FSP/03_Output/01_QC/03_Decontamination/02_synthetic_genomes/Com_2.fa
+FASTA=/mnt/shared/projects/rbgk/projects/FSP/03_Output/01_QC/03_Decontamination/02_synthetic_genomes/Com_5.fa
 OUT=/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/fcs/synthetic
 TAXID=5061
 GXDB=/home/ngarvey/scratch/contamination_detection/FCS/gxdb/gxdb/all.gxi
-OUTBASENAME="EGP017_25_047_Com2"
+OUTBASENAME="EGP017_Com_5.fa"
 
 mkdir -p "$OUT"
 

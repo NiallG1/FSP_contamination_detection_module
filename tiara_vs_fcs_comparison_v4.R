@@ -11,9 +11,9 @@ library(stringr)
 # ------------------------------
 # Step 0: Define file paths and output directory
 # ------------------------------
-fcs_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/fcs/10_EG_003/EGP017_25_B5_001_FCS_GX.tsv" 
-tiara_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/tiara/tiara_EGP017_25_B5_001_best_assembly.txt"
-output_dir <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/comparison/10_EG_003"
+fcs_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/fcs/synthetic/EGP017_Com5_FCS_GX.tsv" 
+tiara_path <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/tiara/tiara_Com_5.txt"
+output_dir <- "/home/ngarvey/scratch/contamination_detection/manual_pipeline/results/comparison/synthetic"
 
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
 
@@ -23,12 +23,17 @@ if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
 # ------------------------------
 # This assumes the sample ID is the first underscore-separated block that looks like EGP###_##_###
 # (You can adjust this regex if needed.)
-sample_id <- str_extract(basename(fcs_path), "EGP[0-9_]+")
+sample_id <- str_extract(
+  basename(fcs_path),
+  "EGP[0-9]+_[0-9]+_B[0-9]+_[0-9]+"
+)
+
 if (is.na(sample_id)) {
-  sample_id <- tools::file_path_sans_ext(basename(fcs_path)) # fallback
+  sample_id <- tools::file_path_sans_ext(basename(fcs_path))
 }
 
 cat(paste("Processing sample:", sample_id, "\n"))
+
 
 # ------------------------------
 # Step 2: Read files
